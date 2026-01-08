@@ -78,7 +78,13 @@ let create scope ({ clock; clear; start; finish; data_in; data_in_valid } : _ I.
                        let prod = ptr' *: recip_sig in
                        let q = sel_top prod ~width:num_bits in
                        let r = ptr' -: uresize ~width:num_bits (q *: hundred_sig) in
-                       when_ vdd [ ptr <-- hundred_sig -: r; part2 <-- part2.value +: q ])
+                       let value = hundred_sig -: r in 
+                       when_
+                         vdd
+                         [ ptr <-- value
+                         ; part2 <-- part2.value +: q
+                         ; when_ (value ==:. 0) [ part1 <-- part1.value +:. 1 ]
+                         ])
                     ]
                     [ (let ptr' = ptr.value +: data_in in
                        let prod = ptr' *: recip_sig in
@@ -87,11 +93,12 @@ let create scope ({ clock; clear; start; finish; data_in; data_in_valid } : _ I.
                        (* Seems to be an edge case where the division will allow r to be 100. *)
                        if_
                          (r ==:. 100)
-                         [ ptr <-- zero num_bits; part2 <-- part2.value +: q +:. 1 ]
+                         [ ptr <-- zero num_bits
+                         ; part2 <-- part2.value +: q +:. 1
+                         ; part1 <-- part1.value +:. 1
+                         ]
                          [ ptr <-- r; part2 <-- part2.value +: q ])
                     ]
-                  (* As ptr is not updated straight away, it seems I need to have this inside. *)
-                ; when_ (ptr.value ==:. 0) [ part1 <-- part1.value +:. 1 ]
                 ]
             ; when_ finish [ sm.set_next Done ]
             ] )
