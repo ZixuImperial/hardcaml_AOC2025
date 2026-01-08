@@ -1,5 +1,5 @@
 (library
- (name hardcaml_demo_project)
+ (name hardcaml_AOC2025)
  (libraries core hardcaml)
  (preprocess
   (pps ppx_hardcaml ppx_jane)))

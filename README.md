@@ -1,4 +1,8 @@
-"Hardcaml Template Project"
+"Hardcaml AOC 2025"
+Currently having issues passing in files, so when running the testbench,
+you can input the full path to the file to run.
+There is the default sample I have put in if you want to run immediately
+
 ===========================
 
 

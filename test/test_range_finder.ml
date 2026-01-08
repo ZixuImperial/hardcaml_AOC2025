@@ -2,7 +2,7 @@ open! Core
 open! Hardcaml
 open! Hardcaml_waveterm
 open! Hardcaml_test_harness
-module Range_finder = Hardcaml_demo_project.Range_finder
+module Range_finder = Hardcaml_AOC2025.Range_finder
 module Harness = Cyclesim_harness.Make (Range_finder.I) (Range_finder.O)
 
 let ( <--. ) = Bits.( <--. )
