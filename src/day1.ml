@@ -95,8 +95,12 @@ let create scope ({ clock; clear; start; finish; data_in; data_in_valid } : _ I.
                               but there was also an issue where when value was 0,
                               part2 did not increment so created if to sort logic. *)
                            if_
-                             (ptr.value ==:. 0 &: edge)
-                             [ part2 <-- part2.value +: quot -:. 1 ]
+                             (ptr.value ==:. 0)
+                             [ if_
+                                 edge
+                                 [ part2 <-- part2.value +: quot -:. 1 ]
+                                 [ part2 <-- part2.value +: quot ]
+                             ]
                              [ if_
                                  edge
                                  [ part2 <-- part2.value +: quot ]
@@ -106,7 +110,7 @@ let create scope ({ clock; clear; start; finish; data_in; data_in_valid } : _ I.
                          ])
                     ]
                     [ ((* Find below explanation of fast quotRem. *)
-                      let ptr' = ptr.value +: data_in in
+                       let ptr' = ptr.value +: data_in in
                        let prod = ptr' *: recip_sig in
                        let quot = sel_top prod ~width:num_bits in
                        let rem = ptr' -: uresize ~width:num_bits (quot *: hundred_sig) in
