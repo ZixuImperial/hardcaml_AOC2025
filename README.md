@@ -1,6 +1,9 @@
 Hardcaml AOC 2025
 ===========================
 
+You can find individual documentation of code inside the /src/day*.md  
+They will go through my though process on the implementation of the day.
+
 Currently having issues passing in files, so when running the testbench,
 you can input the full path to the file to run, your own input.
 There is the default sample I have put in if you want to run immediately.
