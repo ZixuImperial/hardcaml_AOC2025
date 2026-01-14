@@ -1,12 +1,12 @@
-"Hardcaml AOC 2025"
+Hardcaml AOC 2025
 ===========================
 
 Currently having issues passing in files, so when running the testbench,
-you can input the full path to the file to run.
+you can input the full path to the file to run, your own input.
 There is the default sample I have put in if you want to run immediately.
 
-===========================
-
+Default Installations from [Hardcaml Template Project](https://github.com/janestreet/hardcaml_template_project)
+------------------------
 
 This repository provides a simple starter template for getting started with Hardcaml, including:
 
@@ -15,7 +15,8 @@ This repository provides a simple starter template for getting started with Hard
 - A testbench, including waveform printing and VCD export using `hardcaml_test_harness`
 - A binary to generate RTL for synthesis
 
-## Installing Hardcaml
+Installing Hardcaml
+------------
 
 Hardcaml can be installed with opam. We highly recommend using Hardcaml with OxCaml (a
 bleeding-edge OCaml compiler), which includes some Jane Street compiler extensions and
@@ -31,7 +32,7 @@ World OCaml](https://dev.realworldocaml.org/install.html).
 
 Once it's set up, make sure you have the current switch selected in your shell:
 
-```
+```(shell)
 opam switch 5.2.0+ox
 
 eval $(opam env)
@@ -39,19 +40,20 @@ eval $(opam env)
 
 Then, install the core Hardcaml libraries and some other libraries used in Hardcaml projects:
 
-```
+```(UNIX)
 opam install -y hardcaml hardcaml_test_harness hardcaml_waveterm ppx_hardcaml
 
 opam install -y core core_unix ppx_jane rope re dune
 ```
 
-## Building the Example Project
+Building the Example Project
+---------------
 
 To build the project, clone this repository and then run the following command, which will
 build the generator binary (note the exe prefix is standard for OCaml, even on Unix
 systems), as well as building and running all of the tests.
 
-```
+```(shell)
 dune build bin/generate.exe @runtest
 ```
 
@@ -60,13 +62,14 @@ To validate that the tests are running, try changing one of the input values in
 `dune` shows a diff in the tests, it can be accepted using the following command (this
 will modify the file in-place, so you may need to close and re-open it):
 
-```
+```(shell)
 dune promote
 ```
 
 For more on how expect-tests work, see [this blog post](https://blog.janestreet.com/the-joy-of-expect-tests/)
 
-### Viewing Waveforms
+Viewing Waveforms
+-------------
 
 Hardcaml has two main ways to view waveforms:
 
@@ -90,21 +93,24 @@ For small tests, waveforms can also be printed inline (as shown in
 `test_range_finder.ml`), which is useful for documenting and visualizing design behavior,
 albeit not as useful for interactive debugging.
 
-### Generating RTL
+Generating RTL
+------------
 
 To generate RTL, run the compiled `generate.exe` binary, which will print the Verilog source:
-```
+
+```(shell)
 bin/generate.exe range-finder
 ```
 
 Note that dune should automatically copy the compiled binary into your source directory,
 but if it does not, all build products can be found in `_build/default/`.
 
-## Resources
+Resources
+-----------
 
 - If you would like to run dune continuously to re-run tests every time a file is edited:
 
-```
+```(shell)
 dune build --watch --terminal-persistence=clear-on-rebuild-and-flush-history bin/generate.exe @runtest
 ```
 
