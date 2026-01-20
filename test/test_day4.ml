@@ -30,6 +30,7 @@ let convert string =
     Base.String.fold string ~init:([], []) ~f:(fun (acc, line) ch ->
       match ch with
       | '\n' -> ((0 :: List.rev line) @ [ 0 ]) :: acc, []
+      | '\r' -> ((0 :: List.rev line) @ [ 0 ]) :: acc, []
       | '@' -> acc, 1 :: line
       | _ -> acc, 0 :: line)
   in

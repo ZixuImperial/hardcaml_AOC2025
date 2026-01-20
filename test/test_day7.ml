@@ -13,6 +13,7 @@ let convert string =
     Base.String.fold string ~init:([], []) ~f:(fun (acc, line) ch ->
       match ch with
       | '\n' -> List.rev line :: acc, []
+      | '\r' -> List.rev line :: acc, []
       | '.' -> acc, 0 :: line
       | _ -> acc, 1 :: line)
   in
